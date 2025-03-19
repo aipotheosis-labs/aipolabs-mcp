@@ -1,16 +1,17 @@
-import anyio
 import json
+import logging
 import os
+
+import anyio
 import mcp.types as types
-from mcp.server.lowlevel import Server
+import uvicorn
 from aipolabs import ACI
 from aipolabs.types.functions import FunctionDefinitionFormat
+from mcp.server.lowlevel import Server
 from mcp.server.sse import SseServerTransport
+from mcp.server.stdio import stdio_server
 from starlette.applications import Starlette
 from starlette.routing import Mount, Route
-from mcp.server.stdio import stdio_server
-import uvicorn
-import logging
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)

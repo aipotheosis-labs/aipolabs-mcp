@@ -1,6 +1,8 @@
-import click
-from .server import serve
 import asyncio
+
+import click
+
+from .server import serve
 
 
 @click.command()
