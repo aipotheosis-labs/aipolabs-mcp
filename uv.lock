@@ -4,7 +4,7 @@ requires-python = ">=3.10"
 
 [[package]]
 name = "aipolabs"
-version = "0.0.1b5"
+version = "0.0.1b6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "httpx" },
@@ -12,9 +12,9 @@ dependencies = [
     { name = "tenacity" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3a/51/7f6bb5134156481edceae069ba6ca9f603ecaf34b595418efda071070413/aipolabs-0.0.1b5.tar.gz", hash = "sha256:1d1c8bb54de57fb67c3a6ef68a6c0afa4b48ec68b87eb794171abffe28554a07", size = 13285 }
+sdist = { url = "https://files.pythonhosted.org/packages/ed/db/0277eb82694f3ba1af7740c89ba6a8ea9aab635ba4cec5d714b607a99cbd/aipolabs-0.0.1b6.tar.gz", hash = "sha256:54d39726aa83d56a3ca4a563c4bb7d947e01b4372754946de87841b1e5cd3df8", size = 13510 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/15/88/cc1f278eef9733d567a222a73b117d17c08fbf4cd520e1d98149b4732679/aipolabs-0.0.1b5-py3-none-any.whl", hash = "sha256:102d8168968aa2f7dd82690caf2960666bafb0951d92e669eee0d9329d75c394", size = 17812 },
+    { url = "https://files.pythonhosted.org/packages/c0/ab/9dcdb410a9f86c9c73edac9d480f24f1aba29879a11f42473ee09a268b6a/aipolabs-0.0.1b6-py3-none-any.whl", hash = "sha256:e9b4e527fc9811799ac0d35d93eb2be0b07a0d387d8eedf8a3d2050ca74b44be", size = 18729 },
 ]
 
 [[package]]
@@ -40,7 +40,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "aipolabs", specifier = ">=0.0.1b5" },
+    { name = "aipolabs", specifier = ">=0.0.1b6" },
     { name = "anthropic", specifier = ">=0.49.0" },
     { name = "anyio", specifier = ">=4.9.0" },
     { name = "click", specifier = ">=8.1.8" },
