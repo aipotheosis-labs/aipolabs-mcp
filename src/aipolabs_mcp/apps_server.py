@@ -3,14 +3,11 @@ import logging
 
 import anyio
 import mcp.types as types
-import uvicorn
 from aipolabs import ACI
 from aipolabs.types.functions import FunctionDefinitionFormat
 from mcp.server.lowlevel import Server
-from mcp.server.sse import SseServerTransport
-from mcp.server.stdio import stdio_server
-from starlette.applications import Starlette
-from starlette.routing import Mount, Route
+
+from .common import runners
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -90,36 +87,6 @@ def start(apps: list[str], linked_account_owner_id: str, transport: str, port: i
     _set_up(apps=apps, linked_account_owner_id=linked_account_owner_id)
 
     if transport == "sse":
-        anyio.run(run_sse_async, "0.0.0.0", port)
+        anyio.run(runners.run_sse_async, server, "0.0.0.0", port)
     else:
-        anyio.run(run_stdio_async)
-
-
-async def run_stdio_async():
-    async with stdio_server() as (read_stream, write_stream):
-        await server.run(read_stream, write_stream, server.create_initialization_options())
-
-
-async def run_sse_async(host: str, port: int):
-    sse = SseServerTransport("/messages/")
-
-    async def handle_sse(request):
-        async with sse.connect_sse(request.scope, request.receive, request._send) as streams:
-            await server.run(streams[0], streams[1], server.create_initialization_options())
-
-    starlette_app = Starlette(
-        debug=True,
-        routes=[
-            Route("/sse", endpoint=handle_sse),
-            Mount("/messages/", app=sse.handle_post_message),
-        ],
-    )
-
-    config = uvicorn.Config(
-        starlette_app,
-        host=host,
-        port=port,
-        log_level="debug",
-    )
-    uvicorn_server = uvicorn.Server(config)
-    await uvicorn_server.serve()
+        anyio.run(runners.run_stdio_async, server)
