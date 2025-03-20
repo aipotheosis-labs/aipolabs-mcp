@@ -1,5 +1,22 @@
 # aipolabs-mcp: MCP servers powered by [ACI.dev](https://aci.dev)
 
+## Table of Contents
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Apps Server](#apps-server)
+  - [Unified Server](#unified-server)
+- [Understanding the Two Server Types](#understanding-the-two-server-types)
+  - [Apps Server](#apps-server-1)
+  - [Unified Server](#unified-server-1)
+- [Configuration](#configuration)
+  - [Usage with Claude Desktop](#usage-with-claude-desktop)
+  - [Usage with Cursor](#usage-with-cursor)
+- [FAQ](#faq)
+- [Debugging](#debugging)
+
+
 ## Overview
 
 This package provides two Model Context Protocol (MCP) servers for accessing [ACI.dev](https://aci.dev) managed functions (tools):
