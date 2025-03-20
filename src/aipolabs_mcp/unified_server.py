@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 aci = ACI()
-server = Server("aipolabs-mcp-meta")
+server = Server("aipolabs-mcp-unified")
 
 ALLOWED_APPS_ONLY = False
 LINKED_ACCOUNT_OWNER_ID = ""

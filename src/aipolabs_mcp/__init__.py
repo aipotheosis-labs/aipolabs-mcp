@@ -1,5 +1,3 @@
-import asyncio
-
 import click
 
 
@@ -39,7 +37,7 @@ def start_apps_server(apps: str, linked_account_owner_id: str, transport: str, p
     return start(apps_list, linked_account_owner_id, transport, port)
 
 
-@main.command(name="meta_server")
+@main.command(name="unified_server")
 @click.option(
     "--allowed-apps-only",
     is_flag=True,
@@ -59,10 +57,10 @@ def start_apps_server(apps: str, linked_account_owner_id: str, transport: str, p
     help="Transport type",
 )
 @click.option("--port", default=8000, help="Port to listen on for SSE")
-def start_meta_server(
+def start_unified_server(
     allowed_apps_only: bool, linked_account_owner_id: str, transport: str, port: int
 ) -> None:
-    """Start the meta MCP server with unlimited tool access."""
-    from .meta_server import start
+    """Start the unified MCP server with unlimited tool access."""
+    from .unified_server import start
 
     return start(allowed_apps_only, linked_account_owner_id, transport, port)
