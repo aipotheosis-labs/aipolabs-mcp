@@ -1,6 +1,5 @@
 import json
 import logging
-import os
 
 import anyio
 import mcp.types as types
@@ -17,8 +16,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 aci = ACI()
-
-server = Server("aipolabs-mcp", version="0.1.0")
+server = Server("aipolabs-mcp-apps")
 
 APPS = []
 LINKED_ACCOUNT_OWNER_ID = ""
@@ -39,8 +37,6 @@ async def handle_list_tools() -> list[types.Tool]:
     """
     List available tools.
     """
-
-    logger.error(f"AIPOLABS_ACI_API_KEY: {os.environ.get('AIPOLABS_ACI_API_KEY')}")
 
     functions = aci.functions.search(
         app_names=APPS,
@@ -92,8 +88,6 @@ def start(apps: list[str], linked_account_owner_id: str, transport: str, port: i
     logger.info("Starting MCP server...")
 
     _set_up(apps=apps, linked_account_owner_id=linked_account_owner_id)
-    logger.info(f"APPS: {APPS}")
-    logger.info(f"LINKED_ACCOUNT_OWNER_ID: {LINKED_ACCOUNT_OWNER_ID}")
 
     if transport == "sse":
         anyio.run(run_sse_async, "0.0.0.0", port)
