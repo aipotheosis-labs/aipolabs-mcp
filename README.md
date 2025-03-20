@@ -34,10 +34,10 @@ You can specify one or more apps to use with the `--apps` parameter. (For a list
 
 ```bash
 # Using stdio transport (default)
-uvx aipolabs-mcp apps_server --apps "BRAVE_SEARCH, GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
+uvx aipolabs-mcp apps_server --apps "BRAVE_SEARCH,GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
 
 # Using SSE transport with custom port
-uvx aipolabs-mcp apps_server --apps "BRAVE_SEARCH, GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID> --transport sse --port 8000
+uvx aipolabs-mcp apps_server --apps "BRAVE_SEARCH,GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID> --transport sse --port 8000
 ```
 
 ### Unified Server
@@ -122,7 +122,7 @@ For apps-specific access:
   "mcpServers": {
     "aipolabs-mcp-apps": {
         "command": "uvx",
-        "args": ["aipolabs-mcp", "apps_server", "--apps", "BRAVE_SEARCH, GMAIL", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"],
+        "args": ["aipolabs-mcp", "apps_server", "--apps", "BRAVE_SEARCH,GMAIL", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"],
         "env": {
             "AIPOLABS_ACI_API_KEY": "<AIPOLABS_ACI_API_KEY>"
         }
@@ -130,6 +130,34 @@ For apps-specific access:
   }
 }
 ```
+
+## FAQ
+
+- How do I get the `AIPOLABS_ACI_API_KEY`?
+
+    The `AIPOLABS_ACI_API_KEY` is the API key for your [ACI.dev](https://platform.aci.dev) project. You can find it in the [ACI.dev](https://platform.aci.dev/project-settings) project settings.
+
+- How to configure Apps and allow access to them?
+
+    You can configure apps and allow access to them in the [ACI.dev](https://platform.aci.dev/project-settings) project settings.
+
+- How do I get the `LINKED_ACCOUNT_OWNER_ID`?
+
+    The `LINKED_ACCOUNT_OWNER_ID` is the ID of the account that you want to use to access the functions. You can find it in the [ACI.dev](https://platform.aci.dev/project-settings) project settings.
+
+- What is the benefit of using the unified server over the apps server?
+
+    Most of the current MCP servers are limited to a specific set of functions (tools), usually from a single app. If you need to use functions from multiple apps, you'll need to integrate multiple MCP servers. But even if you are ok with the managing overhead of integrating multiple MCP servers, your LLM tool calling performance might suffer because all the tools are loaded into the LLM's context window at once.
+
+    The unified server, however, allows you to discover and execute **ANY** function available on [ACI.dev](https://platform.aci.dev) dynamically without worrying about having thousands of tools taking up your LLM's context window or having to integrate multiple MCP servers. 
+
+- How to specify a list of apps to use with the apps server?
+
+    You can specify a comma-separated list of apps to use with the apps server using the `--apps` parameter. Try NOT to have spaces between the app names.
+
+- Can I just use functions (tools) from one app?
+
+    Yes, you can just use functions (tools) from one app by specifying the (one) app name with the `--apps` parameter.
 
 ## Debugging
 
@@ -140,7 +168,7 @@ You can use the MCP inspector to debug the server:
 npx @modelcontextprotocol/inspector uvx aipolabs-mcp unified_server --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
 
 # For apps server
-npx @modelcontextprotocol/inspector uvx aipolabs-mcp apps_server --apps "BRAVE_SEARCH, GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
+npx @modelcontextprotocol/inspector uvx aipolabs-mcp apps_server --apps "BRAVE_SEARCH,GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
 ```
 
 Running `tail -n 20 -f ~/Library/Logs/Claude/mcp*.log` will show the logs from the server and may help you debug any issues.
