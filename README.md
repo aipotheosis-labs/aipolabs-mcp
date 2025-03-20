@@ -150,29 +150,29 @@ For apps-specific access:
 
 ## FAQ
 
-- How do I get the `AIPOLABS_ACI_API_KEY`?
+- **How do I get the `AIPOLABS_ACI_API_KEY`?**
 
     The `AIPOLABS_ACI_API_KEY` is the API key for your [ACI.dev](https://platform.aci.dev) project. You can find it in the [ACI.dev](https://platform.aci.dev/project-settings) project settings.
 
-- How to configure Apps and allow access to them?
+- **How to configure Apps and allow access to them?**
 
     You can configure apps and allow access to them in the [ACI.dev](https://platform.aci.dev/project-settings) project settings.
 
-- How do I get the `LINKED_ACCOUNT_OWNER_ID`?
+- **How do I get the `LINKED_ACCOUNT_OWNER_ID`?**
 
     The `LINKED_ACCOUNT_OWNER_ID` is the ID of the account that you want to use to access the functions. You can find it in the [ACI.dev](https://platform.aci.dev/project-settings) project settings.
 
-- What is the benefit of using the unified server over the apps server?
+- **What is the benefit of using the unified server over the apps server?**
 
     Most of the current MCP servers are limited to a specific set of functions (tools), usually from a single app. If you need to use functions from multiple apps, you'll need to integrate multiple MCP servers. But even if you are ok with the managing overhead of integrating multiple MCP servers, your LLM tool calling performance might suffer because all the tools are loaded into the LLM's context window at once.
 
     The unified server, however, allows you to discover and execute **ANY** function available on [ACI.dev](https://platform.aci.dev) dynamically without worrying about having thousands of tools taking up your LLM's context window or having to integrate multiple MCP servers. 
 
-- How to specify a list of apps to use with the apps server?
+- **How to specify a list of apps to use with the apps server?**
 
     You can specify a comma-separated list of apps to use with the apps server using the `--apps` parameter. Try NOT to have spaces between the app names.
 
-- Can I just use functions (tools) from one app?
+- **Can I just use functions (tools) from one app?**
 
     Yes, you can just use functions (tools) from one app by specifying the (one) app name with the `--apps` parameter.
 
