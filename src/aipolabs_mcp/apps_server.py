@@ -18,13 +18,21 @@ logger = logging.getLogger(__name__)
 
 aci = ACI()
 
-server = Server(
-    "aipolabs-mcp",
-    version="0.1.0"
-)
+server = Server("aipolabs-mcp", version="0.1.0")
 
 APPS = []
 LINKED_ACCOUNT_OWNER_ID = ""
+
+
+def _set_up(apps: list[str], linked_account_owner_id: str):
+    """
+    Set up global variables
+    """
+    global APPS, LINKED_ACCOUNT_OWNER_ID
+
+    APPS = apps
+    LINKED_ACCOUNT_OWNER_ID = linked_account_owner_id
+
 
 @server.list_tools()
 async def handle_list_tools() -> list[types.Tool]:
@@ -40,7 +48,6 @@ async def handle_list_tools() -> list[types.Tool]:
         format=FunctionDefinitionFormat.ANTHROPIC,
     )
 
-        
     return [
         types.Tool(
             name=function["name"],
@@ -62,9 +69,9 @@ async def handle_call_tool(
     execution_result = aci.functions.execute(
         function_name=name,
         function_arguments=arguments,
-        linked_account_owner_id=LINKED_ACCOUNT_OWNER_ID
+        linked_account_owner_id=LINKED_ACCOUNT_OWNER_ID,
     )
-        
+
     if execution_result.success:
         return [
             types.TextContent(
@@ -81,50 +88,44 @@ async def handle_call_tool(
         ]
 
 
-def _set_up(apps: list[str], linked_account_owner_id: str):
-    """
-    Set up global variables
-    """
-    global APPS, LINKED_ACCOUNT_OWNER_ID
-
-    APPS = apps
-    LINKED_ACCOUNT_OWNER_ID = linked_account_owner_id
-
-
-
-def serve(apps: list[str], linked_account_owner_id: str, transport: str, port: int) -> int:
+def start(apps: list[str], linked_account_owner_id: str, transport: str, port: int) -> None:
     logger.info("Starting MCP server...")
-    
+
     _set_up(apps=apps, linked_account_owner_id=linked_account_owner_id)
     logger.info(f"APPS: {APPS}")
     logger.info(f"LINKED_ACCOUNT_OWNER_ID: {LINKED_ACCOUNT_OWNER_ID}")
 
     if transport == "sse":
-        sse = SseServerTransport("/messages/")
-        async def handle_sse(request):
-            async with sse.connect_sse(
-                request.scope, request.receive, request._send
-            ) as streams:
-                await server.run(
-                    streams[0], streams[1], server.create_initialization_options()
-                )
-
-        starlette_app = Starlette(
-            debug=True,
-            routes=[
-                Route("/sse", endpoint=handle_sse),
-                Mount("/messages/", app=sse.handle_post_message),
-            ],
-        )
-
-        uvicorn.run(starlette_app, host="0.0.0.0", port=port)
+        anyio.run(run_sse_async, "0.0.0.0", port)
     else:
-        async def arun():
-            async with stdio_server() as streams:
-                await server.run(
-                    streams[0], streams[1], server.create_initialization_options()
-                )
+        anyio.run(run_stdio_async)
 
-        anyio.run(arun)
 
-    return 0
+async def run_stdio_async():
+    async with stdio_server() as (read_stream, write_stream):
+        await server.run(read_stream, write_stream, server.create_initialization_options())
+
+
+async def run_sse_async(host: str, port: int):
+    sse = SseServerTransport("/messages/")
+
+    async def handle_sse(request):
+        async with sse.connect_sse(request.scope, request.receive, request._send) as streams:
+            await server.run(streams[0], streams[1], server.create_initialization_options())
+
+    starlette_app = Starlette(
+        debug=True,
+        routes=[
+            Route("/sse", endpoint=handle_sse),
+            Mount("/messages/", app=sse.handle_post_message),
+        ],
+    )
+
+    config = uvicorn.Config(
+        starlette_app,
+        host=host,
+        port=port,
+        log_level="debug",
+    )
+    uvicorn_server = uvicorn.Server(config)
+    await uvicorn_server.serve()
