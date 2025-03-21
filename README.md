@@ -1,4 +1,4 @@
-# aipolabs-mcp: MCP servers powered by [ACI.dev](https://aci.dev)
+# MCP servers powered by [ACI.dev](https://aci.dev)
 
 ## Table of Contents
 - [Overview](#overview)
