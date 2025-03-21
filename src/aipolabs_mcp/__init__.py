@@ -7,7 +7,7 @@ def main():
     pass
 
 
-@main.command(name="apps_server")
+@main.command(name="apps-server")
 @click.option(
     "--apps",
     required=True,
@@ -27,7 +27,9 @@ def main():
     help="Transport type",
 )
 @click.option("--port", default=8000, help="Port to listen on for SSE")
-def start_apps_server(apps: str, linked_account_owner_id: str, transport: str, port: int) -> int:
+def start_apps_server(
+    apps: str, linked_account_owner_id: str, transport: str, port: int
+) -> int:
     """Start the apps-specific MCP server to access tools under specific apps."""
     apps_list = [app.strip() for app in apps.split(",")]
     if not apps_list:
@@ -37,7 +39,7 @@ def start_apps_server(apps: str, linked_account_owner_id: str, transport: str, p
     return start(apps_list, linked_account_owner_id, transport, port)
 
 
-@main.command(name="unified_server")
+@main.command(name="unified-server")
 @click.option(
     "--allowed-apps-only",
     is_flag=True,

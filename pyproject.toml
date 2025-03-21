@@ -1,6 +1,6 @@
 [project]
 name = "aipolabs-mcp"
-version = "0.0.1b3"
+version = "0.0.1b4"
 description = "Aipolabs MCP server, built on top of ACI.dev"
 readme = "README.md"
 requires-python = ">=3.10"
