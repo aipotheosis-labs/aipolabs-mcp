@@ -51,10 +51,10 @@ You can specify one or more apps to use with the `--apps` parameter. (For a list
 
 ```bash
 # Using stdio transport (default)
-uvx aipolabs-mcp apps_server --apps "BRAVE_SEARCH,GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
+uvx aipolabs-mcp apps-server --apps "BRAVE_SEARCH,GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
 
 # Using SSE transport with custom port
-uvx aipolabs-mcp apps_server --apps "BRAVE_SEARCH,GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID> --transport sse --port 8000
+uvx aipolabs-mcp apps-server --apps "BRAVE_SEARCH,GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID> --transport sse --port 8000
 ```
 
 ### Unified Server
@@ -65,10 +65,10 @@ The unified server provides two meta functions (tools) to discover and execute *
 
 ```bash
 # During functions (tools) search/discovery, allow discoverability of all functions (tools) available on ACI.dev
-uvx aipolabs-mcp unified_server --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
+uvx aipolabs-mcp unified-server --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
 
 # During functions (tools) search/discovery, limit to only functions (tools) accessible by the requesting agent (identified by AIPOLABS_ACI_API_KEY)
-uvx aipolabs-mcp unified_server --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID> --allowed-apps-only
+uvx aipolabs-mcp unified-server --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID> --allowed-apps-only
 ```
 
 ## Understanding the Two Server Types
@@ -95,7 +95,7 @@ Add this to your `claude_desktop_config.json`:
   "mcpServers": {
     "aipolabs-mcp-unified": {
       "command": "uvx",
-      "args": ["aipolabs-mcp", "unified_server", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"]
+      "args": ["aipolabs-mcp", "unified-server", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"]
     }
   }
 }
@@ -108,7 +108,7 @@ For apps-specific access:
   "mcpServers": {
     "aipolabs-mcp-apps": {
       "command": "uvx",
-      "args": ["aipolabs-mcp", "apps_server", "--apps", "BRAVE_SEARCH,GMAIL", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"]
+      "args": ["aipolabs-mcp", "apps-server", "--apps", "BRAVE_SEARCH,GMAIL", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"]
     }
   }
 }
@@ -123,7 +123,7 @@ Add to your Cursor `mcp.json`:
     "mcpServers": {
       "aipolabs-mcp-unified": {
         "command": "uvx",
-        "args": ["aipolabs-mcp", "unified_server", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"],
+        "args": ["aipolabs-mcp", "unified-server", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"],
         "env": {
             "AIPOLABS_ACI_API_KEY": "<AIPOLABS_ACI_API_KEY>"
         }
@@ -139,7 +139,7 @@ For apps-specific access:
   "mcpServers": {
     "aipolabs-mcp-apps": {
         "command": "uvx",
-        "args": ["aipolabs-mcp", "apps_server", "--apps", "BRAVE_SEARCH,GMAIL", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"],
+        "args": ["aipolabs-mcp", "apps-server", "--apps", "BRAVE_SEARCH,GMAIL", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"],
         "env": {
             "AIPOLABS_ACI_API_KEY": "<AIPOLABS_ACI_API_KEY>"
         }
@@ -182,10 +182,10 @@ You can use the MCP inspector to debug the server:
 
 ```bash
 # For unified server
-npx @modelcontextprotocol/inspector uvx aipolabs-mcp unified_server --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
+npx @modelcontextprotocol/inspector uvx aipolabs-mcp unified-server --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
 
 # For apps server
-npx @modelcontextprotocol/inspector uvx aipolabs-mcp apps_server --apps "BRAVE_SEARCH,GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
+npx @modelcontextprotocol/inspector uvx aipolabs-mcp apps-server --apps "BRAVE_SEARCH,GMAIL" --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
 ```
 
 Running `tail -n 20 -f ~/Library/Logs/Claude/mcp*.log` will show the logs from the server and may help you debug any issues.
