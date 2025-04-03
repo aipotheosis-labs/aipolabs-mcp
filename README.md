@@ -19,6 +19,8 @@
 
 ## Overview
 
+**_For full documentation and tutorials on MCP servers please visit [aci.dev docs](https://aci.dev/docs/mcp-servers/introduction)._**
+
 This package provides two Model Context Protocol (MCP) servers for accessing [ACI.dev](https://aci.dev) managed functions (tools):
 
 - `aipolabs-mcp-apps`: An MCP server that provides direct access to functions (tools) from specified apps
@@ -72,6 +74,7 @@ uvx aipolabs-mcp unified-server --linked-account-owner-id <LINKED_ACCOUNT_OWNER_
 ```
 
 ## Understanding the Two Server Types
+**_For full documentation and tutorials on MCP servers please visit [aci.dev docs](https://aci.dev/docs/mcp-servers/introduction)._**
 
 ### Apps Server
 The apps server provides direct access to specific app functions/tools you specify with the `--apps` parameter. These tools will appear directly in the tool list when MCP clients (e.g. Claude Desktop, Cursor, etc.) interact with this server.
@@ -85,6 +88,7 @@ The unified server doesn't directly expose app-specific tools. Instead, it provi
 This approach allows MCP clients to dynamically discover and use **ANY** function available on [ACI.dev](https://platform.aci.dev) platform without needing to list them all upfront. It can search for the right tool based on your needs and then execute it.
 
 ## Configuration
+**_For full documentation and tutorials on MCP servers please visit [aci.dev docs](https://aci.dev/docs/mcp-servers/introduction)._**
 
 ### Usage with Claude Desktop
 
