@@ -3,8 +3,8 @@ import logging
 
 import anyio
 import mcp.types as types
-from aipolabs import ACI
-from aipolabs.types.functions import FunctionDefinitionFormat
+from aci import ACI
+from aci.types.functions import FunctionDefinitionFormat
 from mcp.server.lowlevel import Server
 
 from .common import runners
@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 aci = ACI()
-server = Server("aipolabs-mcp-apps")
+server: Server = Server("aci-mcp-apps")
 
 APPS = []
 LINKED_ACCOUNT_OWNER_ID = ""

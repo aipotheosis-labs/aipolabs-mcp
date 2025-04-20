@@ -27,9 +27,7 @@ def main():
     help="Transport type",
 )
 @click.option("--port", default=8000, help="Port to listen on for SSE")
-def start_apps_server(
-    apps: str, linked_account_owner_id: str, transport: str, port: int
-) -> int:
+def start_apps_server(apps: str, linked_account_owner_id: str, transport: str, port: int) -> int:
     """Start the apps-specific MCP server to access tools under specific apps."""
     apps_list = [app.strip() for app in apps.split(",")]
     if not apps_list:
@@ -44,7 +42,7 @@ def start_apps_server(
     "--allowed-apps-only",
     is_flag=True,
     default=False,
-    help="Limit the functions (tools) search to only the allowed apps that are accessible to this agent. (identified by AIPOLABS_ACI_API_KEY)",
+    help="Limit the functions (tools) search to only the allowed apps that are accessible to this agent. (identified by ACI_API_KEY)",
 )
 @click.option(
     "--linked-account-owner-id",
