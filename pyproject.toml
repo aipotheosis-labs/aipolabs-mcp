@@ -1,15 +1,11 @@
 [project]
-name = "aipolabs-mcp"
-version = "0.0.1b5"
-description = "Aipolabs MCP server, built on top of ACI.dev"
+name = "aci-mcp"
+version = "0.0.1b6"
+description = "ACI MCP server, built on top of ACI.dev"
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [
-    { name="Aipolabs", email="support@aipolabs.xyz" }
-]
-maintainers = [
-    { name="hanyi", email="support@aipolabs.xyz" }
-]
+authors = [{ name = "Aipolabs", email = "support@aipolabs.xyz" }]
+maintainers = [{ name = "hanyi", email = "support@aipolabs.xyz" }]
 keywords = [
     "aipolabs",
     "mcp",
@@ -17,7 +13,7 @@ keywords = [
     "mcp server",
     "llm",
     "tool calling",
-    "function calling"
+    "function calling",
 ]
 
 classifiers = [
@@ -36,7 +32,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "aipolabs>=0.0.1b7",
+    "aci-sdk>=0.0.2b3",
     "anthropic>=0.49.0",
     "anyio>=4.9.0",
     "click>=8.1.8",
@@ -47,11 +43,11 @@ dependencies = [
 
 
 [project.scripts]
-aipolabs-mcp = "aipolabs_mcp:main"
+aci-mcp = "aci_mcp:main"
 
 
 [build-system]
-requires = [ "hatchling",]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.ruff]
@@ -59,14 +55,10 @@ line-length = 100
 
 [tool.ruff.lint]
 select = [
-    "E",   # pycodestyle errors
-    "F",   # pyflakes
-    "I",   # isort
+    "E", # pycodestyle errors
+    "F", # pyflakes
+    "I", # isort
 ]
 
 [dependency-groups]
-dev = [
-    "pyright>=1.1.396",
-    "pytest>=8.3.5",
-    "ruff>=0.11.0",
-]
+dev = ["pyright>=1.1.396", "pytest>=8.3.5", "ruff>=0.11.0"]
