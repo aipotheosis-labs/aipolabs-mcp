@@ -4,7 +4,7 @@ requires-python = ">=3.10"
 
 [[package]]
 name = "aci-mcp"
-version = "0.0.1b6"
+version = "1.0.0b1"
 source = { editable = "." }
 dependencies = [
     { name = "aci-sdk" },
