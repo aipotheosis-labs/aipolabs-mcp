@@ -15,9 +15,7 @@
   - [Understanding the Two Server Types](#understanding-the-two-server-types)
     - [Apps Server](#apps-server-1)
     - [Unified Server](#unified-server-1)
-  - [Configuration](#configuration)
-    - [Usage with Claude Desktop](#usage-with-claude-desktop)
-    - [Usage with Cursor](#usage-with-cursor)
+  - [Configuration](#configuration-integration-with-mcp-clients)
   - [FAQ](#faq)
   - [Debugging](#debugging)
 
