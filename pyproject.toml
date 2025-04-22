@@ -1,7 +1,7 @@
 [project]
 name = "aci-mcp"
-version = "0.0.1b6"
-description = "ACI MCP server, built on top of ACI.dev"
+version = "1.0.0b1"
+description = "ACI MCP server, built on top of ACI.dev by Aipolabs"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Aipolabs", email = "support@aipolabs.xyz" }]
