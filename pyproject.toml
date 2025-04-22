@@ -1,7 +1,7 @@
 [project]
 name = "aci-mcp"
-version = "0.0.1b6"
-description = "ACI MCP server, built on top of ACI.dev"
+version = "1.0.0b1"
+description = "ACI MCP server, built on top of ACI.dev by Aipolabs"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Aipolabs", email = "support@aipolabs.xyz" }]
@@ -32,7 +32,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "aci-sdk>=0.0.2b3",
+    "aci-sdk>=1.0.0b1",
     "anthropic>=0.49.0",
     "anyio>=4.9.0",
     "click>=8.1.8",

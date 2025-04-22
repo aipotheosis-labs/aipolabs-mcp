@@ -4,7 +4,7 @@ import logging
 import anyio
 import mcp.types as types
 from aci import ACI
-from aci.meta_functions import ACIExecuteFunction, ACISearchFunctionsWithIntent
+from aci.meta_functions import ACIExecuteFunction, ACISearchFunctions
 from aci.types.functions import FunctionDefinitionFormat
 from mcp.server.lowlevel import Server
 
@@ -35,18 +35,19 @@ async def handle_list_tools() -> list[types.Tool]:
     """
     List available tools.
     """
-    # The ACISearchFunctionsWithIntent.SCHEMA and ACIExecuteFunction.SCHEMA are in openai format,
-    # so we need to convert them to anthropic format.
+    aci_search_functions = ACISearchFunctions.to_json_schema(FunctionDefinitionFormat.ANTHROPIC)
+    aci_execute_function = ACIExecuteFunction.to_json_schema(FunctionDefinitionFormat.ANTHROPIC)
+    
     return [
         types.Tool(
-            name=ACISearchFunctionsWithIntent.NAME,
-            description=ACISearchFunctionsWithIntent.SCHEMA["function"]["description"],
-            inputSchema=ACISearchFunctionsWithIntent.SCHEMA["function"]["parameters"],
+            name=aci_search_functions["name"],
+            description=aci_search_functions["description"],
+            inputSchema=aci_search_functions["input_schema"],
         ),
         types.Tool(
-            name=ACIExecuteFunction.NAME,
-            description=ACIExecuteFunction.SCHEMA["function"]["description"],
-            inputSchema=ACIExecuteFunction.SCHEMA["function"]["parameters"],
+            name=aci_execute_function["name"],
+            description=aci_execute_function["description"],
+            inputSchema=aci_execute_function["input_schema"],
         ),
     ]
 
