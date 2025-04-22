@@ -94,91 +94,36 @@ The unified server doesn't directly expose app-specific tools. Instead, it provi
 
 This approach allows MCP clients to dynamically discover and use **ANY** function available on [ACI.dev](https://platform.aci.dev) platform without needing to list them all upfront. It can search for the right tool based on your needs and then execute it.
 
-## Configuration
+## Configuration (Integration with MCP Clients)
 
-**_For full documentation and tutorials on MCP servers please visit [aci.dev docs](https://aci.dev/docs/mcp-servers/introduction)._**
+See the [Unified MCP Server](https://www.aci.dev/docs/mcp-servers/unified-server#integration-with-mcp-clients) and [Apps MCP Server](https://www.aci.dev/docs/mcp-servers/apps-server#integration-with-mcp-clients) sections for more information on how to configure the MCP servers with different MCP clients.
 
-### Usage with Claude Desktop
-
-Add this to your `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "aci-mcp-unified": {
-      "command": "uvx",
-      "args": ["aci-mcp", "unified-server", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"]
-    }
-  }
-}
-```
-
-For apps-specific access:
-
-```json
-{
-  "mcpServers": {
-    "aci-mcp-apps": {
-      "command": "uvx",
-      "args": ["aci-mcp", "apps-server", "--apps", "BRAVE_SEARCH,GMAIL", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"]
-    }
-  }
-}
-```
-
-### Usage with Cursor
-
-Add to your Cursor `mcp.json`:
-
-```json
-{
-    "mcpServers": {
-      "aci-mcp-unified": {
-        "command": "uvx",
-        "args": ["aci-mcp", "unified-server", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"],
-        "env": {
-            "ACI_API_KEY": "<ACI_API_KEY>"
-        }
-      }
-    }
-  }
-```
-
-For apps-specific access:
-
-```json
-{
-  "mcpServers": {
-    "aci-mcp-apps": {
-        "command": "uvx",
-        "args": ["aci-mcp", "apps-server", "--apps", "BRAVE_SEARCH,GMAIL", "--linked-account-owner-id", "<LINKED_ACCOUNT_OWNER_ID>"],
-        "env": {
-            "ACI_API_KEY": "<ACI_API_KEY>"
-        }
-    }
-  }
-}
-```
 
 ## FAQ
 
 - **How do I get the `ACI_API_KEY`?**
 
-    The `ACI_API_KEY` is the API key for your [ACI.dev](https://platform.aci.dev) project. You can find it in the [ACI.dev](https://platform.aci.dev/project-settings) project settings.
+    The `ACI_API_KEY` is the API key for your [ACI.dev](https://platform.aci.dev) project. You can find it in the [ACI.dev](https://platform.aci.dev/project-setting) project setting.
 
 - **How to configure Apps and allow access to them?**
 
-    You can configure apps and allow access to them in the [ACI.dev](https://platform.aci.dev/project-settings) project settings.
+    You can configure apps and allow access to them in the [ACI.dev](https://platform.aci.dev/project-setting) project setting.
 
 - **How do I get the `LINKED_ACCOUNT_OWNER_ID`?**
 
-    The `LINKED_ACCOUNT_OWNER_ID` is the ID of the account that you want to use to access the functions. You can find it in the [ACI.dev](https://platform.aci.dev/project-settings) project settings.
+    The `LINKED_ACCOUNT_OWNER_ID` is the ID of the account that you want to use to access the functions. You can find it in the [ACI.dev](https://platform.aci.dev/project-setting) project setting.
 
 - **What is the benefit of using the unified server over the apps server?**
 
-    Most of the current MCP servers are limited to a specific set of functions (tools), usually from a single app. If you need to use functions from multiple apps, you'll need to integrate multiple MCP servers. But even if you are ok with the managing overhead of integrating multiple MCP servers, your LLM tool calling performance might suffer because all the tools are loaded into the LLM's context window at once.
+    Most of the current MCP servers out there are limited to a specific set of functions (tools), usually from a single app. If you need to use functions from multiple apps, you'll need to integrate multiple MCP servers. But even if you are ok with the managing overhead of integrating multiple MCP servers, your LLM tool calling performance might suffer because all the tools are loaded into the LLM's context window at once.
+
+    And many times you don't know what apps/functions (tools) you need in advance.
 
     The unified server, however, allows you to discover and execute **ANY** function available on [ACI.dev](https://platform.aci.dev) dynamically without worrying about having thousands of tools taking up your LLM's context window or having to integrate multiple MCP servers.
+
+- **What is the benefit of using the apps server over the unified server?**
+
+    In some cases the function calling performance is more reliable because the functions are pre-planned and limited.
 
 - **How to specify a list of apps to use with the apps server?**
 
