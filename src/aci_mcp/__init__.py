@@ -1,5 +1,6 @@
 import click
-
+import os
+from .common import validators
 
 @click.group()
 def main():
@@ -34,6 +35,8 @@ def start_apps_server(apps: str, linked_account_owner_id: str, transport: str, p
         raise click.UsageError("At least one app is required")
     from .apps_server import start
 
+    validators.validate_api_key(os.getenv("ACI_API_KEY"))
+
     return start(apps_list, linked_account_owner_id, transport, port)
 
 
@@ -62,5 +65,7 @@ def start_unified_server(
 ) -> None:
     """Start the unified MCP server with unlimited tool access."""
     from .unified_server import start
+
+    validators.validate_api_key(os.getenv("ACI_API_KEY"))
 
     return start(allowed_apps_only, linked_account_owner_id, transport, port)
