@@ -19,6 +19,14 @@ server = Server("aci-mcp-unified")
 ALLOWED_APPS_ONLY = False
 LINKED_ACCOUNT_OWNER_ID = ""
 
+aci_search_functions = ACISearchFunctions.to_json_schema(FunctionDefinitionFormat.ANTHROPIC)
+aci_execute_function = ACIExecuteFunction.to_json_schema(FunctionDefinitionFormat.ANTHROPIC)
+
+# TODO: Cursor's auto mode doesn't work well with MCP. (generating wrong type of parameters and
+# the type validation logic is not working correctly). So temporarily we're removing the limit and
+# offset parameters from the search function.
+aci_search_functions["input_schema"]["properties"].pop("limit", None)
+aci_search_functions["input_schema"]["properties"].pop("offset", None)
 
 def _set_up(allowed_apps_only: bool, linked_account_owner_id: str):
     """
@@ -35,9 +43,6 @@ async def handle_list_tools() -> list[types.Tool]:
     """
     List available tools.
     """
-    aci_search_functions = ACISearchFunctions.to_json_schema(FunctionDefinitionFormat.ANTHROPIC)
-    aci_execute_function = ACIExecuteFunction.to_json_schema(FunctionDefinitionFormat.ANTHROPIC)
-    
     return [
         types.Tool(
             name=aci_search_functions["name"],
@@ -54,13 +59,19 @@ async def handle_list_tools() -> list[types.Tool]:
 
 @server.call_tool()
 async def handle_call_tool(
-    name: str, arguments: dict | None
+    name: str, arguments: dict
 ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
     """
     Handle tool execution requests.
     """
-    if arguments is None:
+    if not arguments:
         arguments = {}
+
+    # TODO: if it's ACI_SEARCH_FUNCTIONS, populate default values for limit and offset because we 
+    # removed them from the input schema at the top of this file.
+    if name == aci_search_functions["name"]:
+        arguments["limit"] = 15
+        arguments["offset"] = 0
 
     try:
         result = aci.handle_function_call(
