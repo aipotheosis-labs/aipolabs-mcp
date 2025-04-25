@@ -1,0 +1,49 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - aciApiKey
+      - linkedAccountOwnerId
+    properties:
+      aciApiKey:
+        type: string
+        description: ACI.dev API key for authentication
+      linkedAccountOwnerId:
+        type: string
+        description: Owner ID of the linked account to use for tool calls
+      allowedAppsOnly:
+        type: boolean
+        default: false
+        description: Limit functions search to allowed apps only
+      transport:
+        type: string
+        default: stdio
+        description: Transport type for MCP server
+      port:
+        type: number
+        default: 8000
+        description: Port for SSE transport
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => {
+      const args = ['unified-server', '--linked-account-owner-id', config.linkedAccountOwnerId];
+      if (config.allowedAppsOnly) args.push('--allowed-apps-only');
+      if (config.transport) args.push('--transport', config.transport);
+      if (config.port !== undefined) args.push('--port', String(config.port));
+      return {
+        command: 'aci-mcp',
+        args,
+        env: { ACI_API_KEY: config.aciApiKey }
+      };
+    }
+  exampleConfig:
+    aciApiKey: sk-test1234567890abcdef
+    linkedAccountOwnerId: owner_123456
+    allowedAppsOnly: false
+    transport: stdio
+    port: 8000
