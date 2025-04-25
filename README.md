@@ -131,6 +131,19 @@ See the [Unified MCP Server](https://www.aci.dev/docs/mcp-servers/unified-server
 
     Yes, you can just use functions (tools) from one app by specifying the (one) app name with the `--apps` parameter.
 
+## Docker
+
+```bash
+# Build the image
+docker build -t aci-mcp .
+
+# Run the unified server
+docker run --rm -i -e ACI_API_KEY=<ACI_API_KEY> aci-mcp unified-server --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
+
+# Run the apps server
+docker run --rm -i -e ACI_API_KEY=<ACI_API_KEY> aci-mcp apps-server --apps <APP1,APP2,...> --linked-account-owner-id <LINKED_ACCOUNT_OWNER_ID>
+```
+
 ## Debugging
 
 You can use the MCP inspector to debug the server:
