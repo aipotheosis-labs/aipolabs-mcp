@@ -1,5 +1,5 @@
 # Copied and modified from https://github.com/modelcontextprotocol/servers/blob/a2436f1c5781351bc3864ed1237c8d6ad527057a/src/git/Dockerfile
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS uv
+FROM ghcr.io/astral-sh/uv:python3.10-bookworm-slim AS uv
 
 WORKDIR /app
 
