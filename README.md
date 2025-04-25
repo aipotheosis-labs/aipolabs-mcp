@@ -1,5 +1,7 @@
 # MCP servers powered by [ACI.dev](https://aci.dev)
 
+[![smithery badge](https://smithery.ai/badge/@aipotheosis-labs/aci-mcp)](https://smithery.ai/server/@aipotheosis-labs/aci-mcp)
+
 **_For full documentation and tutorials on MCP servers please visit [aci.dev docs](https://aci.dev/docs/mcp-servers/introduction)._**
 
 ## Table of Contents
@@ -37,6 +39,16 @@ Before using this package, you need to (for more information please see [tutoria
 3. Link your app specific accounts under the same `--linked-account-owner-id` you'll later provide to start the MCP servers
 
 ## Installation
+
+### Installing via Smithery
+
+To install ACI MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@aipotheosis-labs/aci-mcp):
+
+```bash
+npx -y @smithery/cli install @aipotheosis-labs/aci-mcp --client claude
+```
+
+### Installing via pip
 
 The package is published to PyPI, so you can run it directly using `uvx`:
 
