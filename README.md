@@ -16,7 +16,9 @@
 This package provides two Model Context Protocol (MCP) servers for accessing [ACI.dev](https://aci.dev) managed functions (tools):
 
 - `aci-mcp-apps`: An MCP server that provides direct access to functions (tools) from specified apps
+   <img src="./assets/apps-mcp-server-diagram.svg" alt="Apps Server"/>
 - `aci-mcp-unified`: An MCP server that provides two meta functions (tools) (`ACI_SEARCH_FUNCTIONS` and `ACI_EXECUTE_FUNCTION`) to discover and execute **ALL** functions (tools) available on [ACI.dev](https://platform.aci.dev)
+   <img src="./assets/unified-mcp-server-diagram.svg" alt="Unified Server">
 
 > [!IMPORTANT]
 > For detailed explanation and tutorials on the two MCP servers please visit [aci.dev docs](https://aci.dev/docs/mcp-servers/introduction).
