@@ -73,11 +73,23 @@ async def handle_call_tool(
         arguments["limit"] = 15
         arguments["offset"] = 0
 
+    # TODO: temporary solution to support multi-user usecases due to the limitation of MCP protocol.
+    # What happens here is that we allow user (MCP clients) to pass in the 
+    # "aci_override_linked_account_owner_id" parameter for the ACI_EXECUTE_FUNCTION tool call 
+    # (apart from the "function_name" and "function_arguments" parameters), to override the 
+    # default value of the "linked_account_owner_id".
+    # The --linked-account-owner-id flag that we use to start the MCP server will be used as the 
+    # default value of the "linked_account_owner_id".
+    linked_account_owner_id = LINKED_ACCOUNT_OWNER_ID
+    if name == aci_execute_function["name"] and "aci_override_linked_account_owner_id" in arguments:
+        linked_account_owner_id = str(arguments["aci_override_linked_account_owner_id"])
+        del arguments["aci_override_linked_account_owner_id"]
+
     try:
         result = aci.handle_function_call(
             name,
             arguments,
-            linked_account_owner_id=LINKED_ACCOUNT_OWNER_ID,
+            linked_account_owner_id=linked_account_owner_id,
             allowed_apps_only=ALLOWED_APPS_ONLY,
             format=FunctionDefinitionFormat.ANTHROPIC,
         )
