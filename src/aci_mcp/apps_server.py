@@ -53,16 +53,28 @@ async def handle_list_tools() -> list[types.Tool]:
 
 @server.call_tool()
 async def handle_call_tool(
-    name: str, arguments: dict | None
+    name: str, arguments: dict
 ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
     """
     Handle tool execution requests.
     """
 
+    # TODO: temporary solution to support multi-user usecases due to the limitation of MCP protocol.
+    # What happens here is that we allow user (MCP clients) to pass in the
+    # "aci_override_linked_account_owner_id" parameter for tool call arguments
+    # (apart from the arguments of the tool call itself), to override the
+    # default value of the "linked_account_owner_id".
+    # The --linked-account-owner-id flag that we use to start the MCP server will be used as the
+    # default value of the "linked_account_owner_id".
+    linked_account_owner_id = LINKED_ACCOUNT_OWNER_ID
+    if "aci_override_linked_account_owner_id" in arguments:
+        linked_account_owner_id = str(arguments["aci_override_linked_account_owner_id"])
+        del arguments["aci_override_linked_account_owner_id"]
+
     execution_result = aci.functions.execute(
         function_name=name,
         function_arguments=arguments,
-        linked_account_owner_id=LINKED_ACCOUNT_OWNER_ID,
+        linked_account_owner_id=linked_account_owner_id,
     )
 
     if execution_result.success:
