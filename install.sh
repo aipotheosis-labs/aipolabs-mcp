@@ -27,13 +27,8 @@ check_python() {
     fi
 
     PYTHON_VERSION=$(python3 -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-    if ! command -v bc &>/dev/null; then
-        print_error "bc command not found. Please install bc to check Python version"
-    fi
 
-    # Convert version to comparable number (e.g., 3.9 -> 309, 3.10 -> 310)
-    VERSION_NUM=$(echo "$PYTHON_VERSION" | tr -d '.')
-    if [ "$VERSION_NUM" -lt 310 ]; then
+    if [[ "$(python3 -c 'import sys; print(sys.version_info >= (3,10))')" != "True" ]]; then
         print_error "Python 3.10 or higher is required. Found Python $PYTHON_VERSION"
     fi
 
