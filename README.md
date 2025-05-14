@@ -6,6 +6,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [Quick Installation](#quick-installation)
 - [Run MCP Servers Locally](#run-mcp-servers-locally)
 - [Integration with MCP Clients](#integration-with-mcp-clients)
 - [Docker](#docker)
@@ -23,6 +24,34 @@ This package provides two Model Context Protocol (MCP) servers for accessing [AC
 > [!IMPORTANT]
 > For detailed explanation and tutorials on the two MCP servers please visit [aci.dev docs](https://aci.dev/docs/mcp-servers/introduction).
 
+## Quick Installation
+
+We provide an easy installation script that sets up MCP servers for different environments (Cursor, Claude desktop, etc.):
+
+```bash
+# Clone the repository
+git clone https://github.com/aipotheosis-labs/aci-mcp.git
+cd aci-mcp
+
+# Run the installation script
+./install.sh
+```
+
+The script will:
+1. Check for Python 3.10+ installation
+2. Install required dependencies
+3. Create configuration directory at `~/.aci-mcp/`
+4. Set up environment-specific scripts
+
+After installation:
+1. Edit `~/.aci-mcp/config` to add your:
+   - ACI API key
+   - Linked account owner ID
+   - Server type preference (unified or apps)
+   - Apps list (if using apps server)
+2. Run the appropriate setup script:
+   - For Cursor: `~/.aci-mcp/setup-cursor.sh`
+   - For Claude desktop: `~/.aci-mcp/setup-claude.sh`
 
 ## Run MCP Servers Locally
 
