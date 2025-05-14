@@ -47,7 +47,7 @@ install_uv() {
         if ! curl -sSf https://install.pypa.io/get-pip.py | python3 -; then
             print_error "Failed to install pip"
         fi
-        if ! pip install uv; then
+        if ! python3 -m pip install uv; then
             print_error "Failed to install uv"
         fi
     else
