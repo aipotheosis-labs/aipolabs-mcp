@@ -86,6 +86,7 @@ EOL
             print_error "Failed to create config file at $CONFIG_DIR/config"
         fi
         print_message "Created configuration file at $CONFIG_DIR/config"
+        chmod 600 "$CONFIG_DIR/config"
     fi
 }
 
